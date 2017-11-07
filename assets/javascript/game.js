@@ -1,6 +1,6 @@
 // Global Variables
-// var wordList = ["bar", "beat", "chord", "flat", "key", "sharp", "piano", "major"];
-var wordList = ["beatt"] // simple list for troubleshooting
+var wordList = ["bar", "beat", "chord", "flat", "key", "sharp", "piano", "major"];
+// var wordList = ["beatt"] // simple list for troubleshooting
 
 // Randomly chooses a word from the wordList array. This is the current word in play.
 var word = wordList[Math.floor(Math.random() * wordList.length)];
@@ -45,6 +45,8 @@ document.onkeyup = function(event) {
 	console.log("The word is " + word);
 	console.log("The search will begin at " + startIndex);
 
+	
+
 	while (word.indexOf(guess, startIndex) !== -1) { //While guess is found in word after startIndex
 	  	console.log("The word searched was " + word);
 	  	// replace letter
@@ -53,12 +55,24 @@ document.onkeyup = function(event) {
 	  	arrayOfUnderscores[word.indexOf(guess,startIndex)] = guess;
 	  	// console.log(arrayOfUnderscores); //What is in the arrayOfUnderscores after letter is replaced
 	  	
-	  	// remove letter
-	  	// fill blanks
+	  	// remove commas from arrayOfUnderscores.
+	 //  	var str = arrayOfUnderscores.toString();
+	 //  	var res = str.replace(",", " ");
+		// document.getElementById("inPlay").textContent = res;
+
+
 		document.getElementById("inPlay").textContent = arrayOfUnderscores.toString();
 		// move search start to location of letter found
 	  	startIndex = word.indexOf(guess, startIndex) + 1; 
 	}
+	
+	//create text node for old guesses
+	var oldGuess = document.createTextNode(guess);
+	//update the text conten with current guess and a comma with a space
+    oldGuess.textContent = guess + ", " ;
+    //append the text node to the span oldGuess
+    document.getElementById("oldGuess").appendChild(oldGuess);
+
 	var startIndex = 0; // After searching word, set startIndex back to 0.
 };
 
