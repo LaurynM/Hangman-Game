@@ -12,9 +12,12 @@ var arrayWord = word.split("");
 // Creates an array the same size as the arrayWord, populated by underscores
 var arrayOfUnderscores = arrayWord.map(a=>'_');
 console.log(arrayOfUnderscores);
-
+var string = arrayOfUnderscores.toString();
+// remove commas from arrayOfUnderscores, and replace (globally) the commas with spaces
+var result = string.replace(/,/g, " ");
 // Displays the arrayOfUnderscores as a string within the #inPlay span
-document.getElementById("inPlay").textContent = arrayOfUnderscores.toString();
+// document.getElementById("inPlay").textContent = arrayOfUnderscores.toString();
+document.getElementById("inPlay").textContent = result;
 
 // Declares the variable that contains the current guess
 var guess;
@@ -55,20 +58,18 @@ document.onkeyup = function(event) {
 	  	arrayOfUnderscores[word.indexOf(guess,startIndex)] = guess;
 	  	// console.log(arrayOfUnderscores); //What is in the arrayOfUnderscores after letter is replaced
 	  	
-	  	// remove commas from arrayOfUnderscores.
-	 //  	var str = arrayOfUnderscores.toString();
-	 //  	var res = str.replace(",", " ");
-		// document.getElementById("inPlay").textContent = res;
-
-
-		document.getElementById("inPlay").textContent = arrayOfUnderscores.toString();
+	  	// // remove commas from arrayOfUnderscores.
+	  	var str = arrayOfUnderscores.toString();
+	  	// // replace (globally) the commas with spaces
+	  	var res = str.replace(/,/g, " ");
+		document.getElementById("inPlay").textContent = res;
 		// move search start to location of letter found
 	  	startIndex = word.indexOf(guess, startIndex) + 1; 
 	}
 	
 	//create text node for old guesses
 	var oldGuess = document.createTextNode(guess);
-	//update the text conten with current guess and a comma with a space
+	//update the text content with current guess and a comma with a space
     oldGuess.textContent = guess + ", " ;
     //append the text node to the span oldGuess
     document.getElementById("oldGuess").appendChild(oldGuess);
