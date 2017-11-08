@@ -11,7 +11,7 @@ var arrayWord = word.split("");
 
 // Creates an array the same size as the arrayWord, populated by underscores
 var arrayOfUnderscores = arrayWord.map(a=>'_');
-console.log(arrayOfUnderscores);
+// console.log(arrayOfUnderscores);
 var string = arrayOfUnderscores.toString();
 // remove commas from arrayOfUnderscores, and replace (globally) the commas with spaces
 var result = string.replace(/,/g, " ");
@@ -30,6 +30,11 @@ var oldGuess = [];
 
 //Decalre variable to index guesses, start at -1, so first counter will be zero
 var guessCount = -1;
+
+//Initialize array with guessable charcters. All other key presses will be ignored.
+var alphabet = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "k", "j", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
+var letters = /^[A-Za-z]+$/;
+console.log(letters);
 
 // Objects
 
@@ -53,7 +58,15 @@ document.onkeyup = function(event) {
 	//check if this character has been guessed before.
 	if (oldGuess.indexOf(guess) !== -1){
 		alert("You've already guessed that...")
-		return //stop running onkeyup function is the character is found in oldGuess
+		return //stop running onkeyup function if the character is found in oldGuess
+	// } else if (!guess.match(letters)){ 
+	// 	//Check if guess is a guessable character
+	// 	alert("That's not a letter...");
+	// 	return //Stop running onkeyup function if guess is not found in alphabet
+	} else if (alphabet.indexOf(guess) === -1){ 
+		//Check if guess is a guessable character
+		alert("That's not a letter...");
+		return //Stop running onkeyup function if guess is not found in alphabet
 	}
 	//index this guess
 	guessCount++;
