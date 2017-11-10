@@ -1,5 +1,55 @@
+body {
+    height: 100%;
+}
 .jumbotron {
+    height: 100vh;
 	background-image: url("../images/piano.jpg");
 	background-color: black;
 	background-size: cover;
+}
+#head {
+	color: white;
+	/*margin: auto;*/
+	text-align: center;
+	min-height: 25%;
+}
+#play p {
+	color: white;
+	margin-top: 40px;
+	text-align: center;
+	font-size: xx-large;
+}
+#current {
+	color: white;
+	margin-top: 40px;
+	text-align: center;
+	font-size: xx-large;
+}
+
+/*.bottom {
+	position: absolute;
+	bottom: 50px;
+	left: 50px;
+}*/
+#stats {
+	position: fixed;
+	bottom: 100px;
+	color: white;
+	/*margin-top: 40px;*/
+	/*margin: auto;*/
+	/*width: 50%;*/
+	float: left;
+}
+#old p {
+	color: white;
+	/*margin-top: 40px;*/
+	/*margin: auto;*/
+	/*text-align: center;*/
+	font-size: xx-large;
+	/*width: 50%;*/
+}
+#old {
+	/*position: fixed;*/
+	bottom: 50px;
+	float: right;
 }
