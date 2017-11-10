@@ -3,38 +3,53 @@ var wordList = ["bar", "beat", "chord", "flat", "key", "sharp", "piano", "major"
 // var wordList = ["beatt"] // simple list for troubleshooting
 
 // Randomly chooses a word from the wordList array. This is the current word in play.
-var word = wordList[Math.floor(Math.random() * wordList.length)];
-console.log(word);
+// var word = wordList[Math.floor(Math.random() * wordList.length)];
+// console.log(word);
+var word;
 
 // Splits the letters of the selected word into an array
-var arrayWord = word.split("");
+// var arrayWord = word.split("");
+var arrayWord;
 
-// Creates an array the same size as the arrayWord, populated by underscores
-var arrayOfUnderscores = arrayWord.map(a=>'_');
-// console.log(arrayOfUnderscores);
-var string = arrayOfUnderscores.toString();
-// remove commas from arrayOfUnderscores, and replace (globally) the commas with spaces
-var result = string.replace(/,/g, " ");
-// Displays the arrayOfUnderscores as a string within the #inPlay span
-// document.getElementById("inPlay").textContent = arrayOfUnderscores.toString();
-document.getElementById("inPlay").textContent = result;
+// // Creates an array the same size as the arrayWord, populated by underscores
+// var arrayOfUnderscores = arrayWord.map(a=>'_');
+// var string = arrayOfUnderscores.toString();
+// // remove commas from arrayOfUnderscores, and replace (globally) the commas with spaces
+// var result = string.replace(/,/g, " ");
+// // Displays the arrayOfUnderscores as a string within the #inPlay span
+// document.getElementById("inPlay").textContent = result;
+var arrayOfUnderscores;
+var string;
+var result;
 
 // Declares the variable that contains the current guess
 var guess;
 
-// Declares/initializes the start point of the guess/word search
-var startIndex = 0;
+//Declares variables to count wins and losses
+var win = 0;
+var lose = 0;
 
-//Declare array to store old guesses
-var oldGuess = [];
+// //Declares variable to store chances to guess. Set to 150% of word length, rounded up
+// var chances = Math.ceil(word.length * 1.5);
+// document.getElementById("chances").textContent = chances;
+// console.log(chances);
+var chances;
 
-//Decalre variable to index guesses, start at -1, so first counter will be zero
-var guessCount = -1;
+// // Initializes the start point of the guess/word search
+// var startIndex = 0;
+var startIndex;
+
+// //Declare array to store old guesses
+// var oldGuess = [];
+var oldGuess;
+
+// //Decalre variable to index guesses, start at -1, so first counter will be zero
+// var guessCount = -1;
+var guessCount;
 
 //Initialize array with guessable charcters. All other key presses will be ignored.
 var alphabet = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "k", "j", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
-var letters = /^[A-Za-z]+$/;
-console.log(letters);
+// var letters = /^[A-Za-z]+$/;
 
 // Objects
 
@@ -49,6 +64,36 @@ console.log(letters);
 
 // Calls
 
+function newGame(){
+	// Randomly chooses a word from the wordList array. This is the current word in play.
+	word = wordList[Math.floor(Math.random() * wordList.length)];
+	console.log(word); //Word display here to explore without needing to guess
+	// Splits the letters of the selected word into an array
+	arrayWord = word.split("");
+	// Creates an array the same size as the arrayWord, populated by underscores
+	arrayOfUnderscores = arrayWord.map(a=>'_');
+	string = arrayOfUnderscores.toString();
+	// remove commas from arrayOfUnderscores, and replace (globally) the commas with spaces
+	result = string.replace(/,/g, " ");
+	// Displays the arrayOfUnderscores as a string within the #inPlay span
+	document.getElementById("inPlay").textContent = result;
+	//Declares variable to store chances to guess. Set to 150% of word length, rounded up
+	chances = Math.ceil(word.length * 1.5);
+	document.getElementById("chances").textContent = chances;
+	// reset the start point of the guess/word search
+	startIndex = 0;
+	//empty array to store old guesses
+	oldGuess = [];
+    document.getElementById("oldGuess").textContent = oldGuess;
+    //Reset current guess
+    document.getElementById("currentGuess").textContent = "nothing, yet"
+	//set variable to index guesses at -1, so first counter will be zero
+	guessCount = -1;
+
+}
+
+newGame();
+
 // When onkeyup event occurs, the button pressed is stored as text in the guess variable.
 // The letter is displayed to the id #guess.
 document.onkeyup = function(event) {
@@ -59,10 +104,7 @@ document.onkeyup = function(event) {
 	if (oldGuess.indexOf(guess) !== -1){
 		alert("You've already guessed that...")
 		return //stop running onkeyup function if the character is found in oldGuess
-	// } else if (!guess.match(letters)){ 
-	// 	//Check if guess is a guessable character
-	// 	alert("That's not a letter...");
-	// 	return //Stop running onkeyup function if guess is not found in alphabet
+
 	} else if (alphabet.indexOf(guess) === -1){ 
 		//Check if guess is a guessable character
 		alert("That's not a letter...");
@@ -85,9 +127,8 @@ document.onkeyup = function(event) {
 	  	arrayOfUnderscores[word.indexOf(guess,startIndex)] = guess;
 	  	// console.log(arrayOfUnderscores); //What is in the arrayOfUnderscores after letter is replaced
 	  	
-	  	// // remove commas from arrayOfUnderscores.
+	  	// // remove commas from arrayOfUnderscores. replace (globally) the commas with spaces
 	  	var str = arrayOfUnderscores.toString();
-	  	// // replace (globally) the commas with spaces
 	  	var res = str.replace(/,/g, " ");
 		document.getElementById("inPlay").textContent = res;
 		// move search start to location of letter found
@@ -102,7 +143,23 @@ document.onkeyup = function(event) {
     document.getElementById("oldGuess").appendChild(currentGuess);
     //Store current guess in array with past guesses.
     oldGuess[guessCount] = guess;
-    console.log(oldGuess);
+    //if the current guess was not correct, decrease chances by 1
+    if (word.indexOf(guess) === -1){
+		chances--;
+		document.getElementById("chances").textContent = chances;
+	}
+    //Has the word been guessed?
+	if (arrayOfUnderscores.indexOf("_") === -1){ //If there are no underscores in arrayOfUnderscores...
+ 		win++; //add one to win variable
+		document.getElementById("win").textContent = win;
+ 		alert("You guessed it! The word is " + word + ".");
+		newGame(); //Start again
+	} else if (chances === 0){ //If there are no more chances left...
+		lose++; //add one to lose variable
+		alert("Sorry, you lost! The word is " + word + ".");
+		document.getElementById("lose").textContent = lose;
+		newGame(); //Start again
+	}
 
 	var startIndex = 0; // After searching word, set startIndex back to 0.
 };

@@ -1,14 +1,25 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Hangman</title>
+	<title>Pianoman</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
 </head>
 <body>
-	<h1>Type any letter to guess.</h1>
-	<p> Your word is <span id="inPlay"></span>.</p>
-	<h2>You've guessed <span id="currentGuess"><strong>nothing, yet</strong></span>.</h2>
 
-	<p><span id="oldGuess"></span></p>
+	<div class="jumbotron">
+  		<div class="container">
+    
+
+			<h1>Type any letter to guess.</h1>
+			<p> Your word is <span id="inPlay"></span>.</p>
+			<h2>You've guessed <span id="currentGuess"><strong>nothing, yet</strong></span>.</h2>
+
+			<p><span id="oldGuess"></span></p>
+			<p>Guesses Remaining: <span id="chances"></span></p>
+			<p>Wins: <span id="win">0</span></p>
+			<p>Losses: <span id="lose">0</span></p>
+  		</div>
+	</div>
 
 	<script type="text/javascript" src="assets/javascript/game.js"></script>
 </body>
