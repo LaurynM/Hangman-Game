@@ -98,8 +98,8 @@ newGame();
 // The letter is displayed to the id #guess.
 document.onkeyup = function(event) {
 	document.getElementById("currentGuess").textContent = event.key;
-	// Stores the input "guess" as a string in the variable guess.
-	guess = event.key;
+	// Stores the input keystroke as a (lowercase) string in the variable guess.
+	guess = event.key.toLowerCase();
 	//check if this character has been guessed before.
 	if (oldGuess.indexOf(guess) !== -1){
 		alert("You've already guessed that...")

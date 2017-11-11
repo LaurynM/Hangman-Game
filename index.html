@@ -12,16 +12,10 @@
   			<div class="row">
   				<div class="col-md-12">
   					<div id="head">
+  						<p>Let's play the Pianoman game!</p>
 						<h1>Type any letter to guess.</h1>
 					</div>
 				</div> <!--end of header columns -->
-			</div> <!-- end of row -->
-  			<div class="row">
-  				<div class="col-md-12">
-  					<div id="play">
-						<p>Your word is <span id="inPlay"></span>.</p>
-					</div>
-				</div> <!--end of "word in play" columns -->
 			</div> <!-- end of row -->
   			<div class="row">
   				<div class="col-md-12">
@@ -31,18 +25,21 @@
 				</div> <!--end of "current guess" columns -->
 			</div> <!-- end of row -->
   			<div class="row">
-  				<div class="col-md-6 bottom">
+  				<div class="col-md-12">
+  					<div id="play">
+						<p>Your word is <span id="inPlay"></span>.</p>
+					</div>
+				</div> <!--end of "word in play" columns -->
+			</div> <!-- end of row -->
+  			<div class="row">
+  				<div class="col-md-12 bottom">
   					<div id="stats">
 						<p>Guesses Remaining: <span id="chances"></span></p>
 						<p>Wins: <span id="win">0</span></p>
 						<p>Losses: <span id="lose">0</span></p>
+						<p>Guesses so far: <span id="oldGuess"></span></p>
 					</div>
-				</div> <!--end of "game stats" columns -->
-  				<div class="col-md-6 bottom">
-  					<div id="old">
-						<p><span id="oldGuess"></span></p>
-					</div>
-				</div> <!--end of "old guesses" columns -->
+				</div> <!--end of "stats" columns -->
 			</div> <!-- end of row -->
   		</div> <!-- end of container -->
 	</div> <!-- end of jumbotron -->
